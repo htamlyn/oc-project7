@@ -1,0 +1,143 @@
+const sql = require('./db');
+
+const Post = function (post) {
+    this.employeeId = post.employeeId;
+    this.title = post.title;
+    this.content = post.content;
+    this.imagePath = post.imagePath;
+    this.timeStamp = post.timeStamp;
+    this.likes = post.likes;
+};
+
+Post.create = (newPost, result) => {
+    sql.query("INSERT INTO posts SET ?", newPost, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        console.log("created post: ", { id: res.insertId, ...newPost });
+        result(null, { id: res.insertId, ...newPost });
+    });
+};
+
+Post.getAll = result => {
+    sql.query("SELECT * FROM posts", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log("posts: ", res);
+        result(null, res);
+    });
+};
+
+Post.findById = (postId, result) => {
+    sql.query(`SELECT * FROM posts WHERE postID = ${postId}`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        if (res.length) {
+            console.log("found post: ", res[0]);
+            result(null, res[0]);
+            return;
+        }
+
+        // no Post found with the id
+        result({ kind: "not_found" }, null);
+    });
+};
+
+Post.updateById = (id, post, result) => {
+    sql.query(
+        "UPDATE posts SET title = ?, content = ?, imagePath = ? WHERE postID = ?",
+        [post.title, post.content, post.imagePath, id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                // no Post found with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("updated post: ", { id: id, ...post });
+            result(null, { id: id, ...post });
+        }
+    );
+};
+
+Post.likePost = (id, result) => {
+    sql.query("UPDATE posts SET likes = likes + 1 WHERE postID = ?",
+        [id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                // no Post found with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("liked post: ", { id: id});
+            result(null, { id: id});
+        }
+    );
+};
+
+Post.cancelLike = (id, result) => {
+    sql.query("UPDATE posts SET likes = likes - 1 WHERE postID = ?",
+        [id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                // no Post found with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("cancelled post like: ", { id: id });
+            result(null, { id: id});
+        }
+    );
+}
+
+Post.remove = (id, result) => {
+    sql.query("DELETE from posts WHERE postID = ?", [id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.affectedRows == 0) {
+            // no Post found with the id
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        console.log("Deleted Post with id: ", id);
+        result(null, res);
+    });
+};
+
+module.exports = Post;
