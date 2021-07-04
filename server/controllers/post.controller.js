@@ -11,6 +11,7 @@ exports.create = (req, res) => {
 
     // Create a Post
     const post = new Post({
+        employeeId: req.body.employeeId,
         title: req.body.title,
         content: req.body.content,
         imagePath: req.body.imagePath,

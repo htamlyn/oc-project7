@@ -16,14 +16,13 @@ Post.create = (newPost, result) => {
             result(err, null);
             return;
         }
-
         console.log("created post: ", { id: res.insertId, ...newPost });
         result(null, { id: res.insertId, ...newPost });
     });
 };
 
 Post.getAll = result => {
-    sql.query("SELECT * FROM posts", (err, res) => {
+    sql.query("SELECT posts.*, employee.username FROM posts INNER JOIN employee ON posts.employeeID=employee.employeeID", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -36,7 +35,7 @@ Post.getAll = result => {
 };
 
 Post.findById = (postId, result) => {
-    sql.query(`SELECT * FROM posts WHERE postID = ${postId}`, (err, res) => {
+    sql.query(`SELECT posts.*, employee.username FROM posts INNER JOIN employee ON posts.employeeID=employee.employeeID WHERE postID = ${postId}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
