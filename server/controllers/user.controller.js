@@ -1,5 +1,7 @@
 const User = require('../models/user.model');
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const jwt = require('jsonwebtoken');
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -10,12 +12,16 @@ exports.create = (req, res) => {
         });
     }
 
+    // Encrypt Password
+    const password = req.body.password;
+    const hash = bcrypt.hashSync(password, saltRounds);
+
     // Create a User
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: req.body.username,
-        password: req.body.password,
+        password: hash,
         email: req.body.email
     });
 
@@ -29,6 +35,44 @@ exports.create = (req, res) => {
         else res.send(data);
     });
 };
+
+// Login User
+exports.login = (req, res) => {
+    const username = req.body.username;
+    User.findByUsername(username, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `No User found with username ${req.body.username}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving User with username " + req.body.username
+                });
+            }
+        } else {
+            console.log(req.body.password, data.password)
+            if (bcrypt.compareSync(req.body.password, data.password) === true) {
+                console.log('good password')
+                const token = jwt.sign(
+                    { userId: data.employeeID },
+                    'RANDOM_TOKEN_SECRET',
+                    { expiresIn: '24h' });
+                res.status(200).json({
+                    userId: data.employeeID,
+                    token: token
+                });
+            } else {
+                console.log('401')
+                res.status(401).send({
+                    message: "Incorrect Password"
+                })
+            }
+        }
+    })
+}
+
+
 
 // Retrieve all users from the database.
 exports.findAll = (req, res) => {
@@ -93,15 +137,15 @@ exports.delete = (req, res) => {
     const { id } = req.params
     User.remove(id, (err, data) => {
         if (err) {
-          if (err.kind === "not_found") {
-            res.status(404).send({
-              message: `No User found with id ${id}.`
-            });
-          } else {
-            res.status(500).send({
-              message: "Could not delete User with id " + id
-            });
-          }
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `No User found with id ${id}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Could not delete User with id " + id
+                });
+            }
         } else res.send({ message: `User was deleted successfully!` });
-      });
+    });
 };

@@ -1,7 +1,7 @@
 const sql = require('./db');
 
 const Post = function (post) {
-    this.employeeId = post.employeeId;
+    this.employeeID = post.employeeID;
     this.title = post.title;
     this.content = post.content;
     this.imagePath = post.imagePath;

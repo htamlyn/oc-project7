@@ -1,0 +1,25 @@
+.postDiv{
+    background-color: white;
+    width: 75vw;
+    display: flex;
+    margin: auto;
+    margin-top: 10vh;
+    padding: 1em 2em;
+    flex-wrap: wrap;
+    border: 0.1em solid #194b4b3b;
+    border-radius: 1em;
+}
+
+.postDiv__header{
+    width: 100%;
+    display: flex;
+}
+
+.postDiv__header--title{
+    padding-left: 2em;
+    width: 75%;
+}
+
+.postDiv__content{
+    width: 90%;
+}

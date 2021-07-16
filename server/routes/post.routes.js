@@ -1,5 +1,6 @@
 module.exports = app => {
     const posts = require('../controllers/post.controller');
+    const auth = require('../middleware/auth');
 
     // Create a new Post
     app.post("/post", posts.create);
