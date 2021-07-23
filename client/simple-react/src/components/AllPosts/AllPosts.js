@@ -1,7 +1,7 @@
 import React from 'react';
-import './Post.css'
+import './AllPosts.css'
 
-class Post extends React.Component {
+class AllPosts extends React.Component {
     constructor(props) {
         super(props);
 
@@ -44,4 +44,4 @@ class Post extends React.Component {
     }
 }
 
-export default Post;
+export default AllPosts;

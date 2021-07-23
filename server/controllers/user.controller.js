@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 // Create and Save a new User
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body) {
+    if (Object.keys(req.body).length === 0) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -51,9 +51,7 @@ exports.login = (req, res) => {
                 });
             }
         } else {
-            console.log(req.body.password, data.password)
             if (bcrypt.compareSync(req.body.password, data.password) === true) {
-                console.log('good password')
                 const token = jwt.sign(
                     { userId: data.employeeID },
                     'RANDOM_TOKEN_SECRET',
@@ -63,7 +61,6 @@ exports.login = (req, res) => {
                     token: token
                 });
             } else {
-                console.log('401')
                 res.status(401).send({
                     message: "Incorrect Password"
                 })
@@ -134,6 +131,7 @@ exports.update = (req, res) => {
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
+    console.log('delete user')
     const { id } = req.params
     User.remove(id, (err, data) => {
         if (err) {

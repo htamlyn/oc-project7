@@ -74,8 +74,8 @@ User.findByUsername = (username, result) => {
 
 User.updateById = (id, user, result) => {
     sql.query(
-        "UPDATE employee SET email = ?, firstName = ?, lastName = ?, password = ?, username = ? WHERE employeeID = ?",
-        [user.email, user.firstName, user.lastName, user.password, user.username, id],
+        "UPDATE employee SET email = ?, firstName = ?, lastName = ?, username = ? WHERE employeeID = ?",
+        [user.email, user.firstName, user.lastName, user.username, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

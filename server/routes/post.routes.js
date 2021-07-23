@@ -1,9 +1,9 @@
 module.exports = app => {
     const posts = require('../controllers/post.controller');
-    const auth = require('../middleware/auth');
+    const multer = require('../middleware/multer-config');
 
     // Create a new Post
-    app.post("/post", posts.create);
+    app.post("/post", multer, posts.create);
 
     // Retrieve all Posts
     app.get("/post", posts.findAll);

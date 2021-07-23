@@ -10,11 +10,12 @@ exports.create = (req, res) => {
     }
 
     // Create a Post
+    const url = req.protocol + '://' + req.get('host');
     const post = new Post({
-        employeeId: req.body.employeeId,
+        employeeID: req.body.employeeID,
         title: req.body.title,
         content: req.body.content,
-        imagePath: req.body.imagePath,
+        // imagePath: url + '/images/' + req.file.filename,
         timeStamp: req.body.timeStamp,
         likes: req.body.likes
     });

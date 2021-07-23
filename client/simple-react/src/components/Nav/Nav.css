@@ -1,0 +1,40 @@
+nav{
+    height: 8vh;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+  
+nav div{
+    font-size: larger;
+    color: #5c5a5a;
+  }
+  
+.navDiv__logo{
+    width: 50vw;
+  }
+
+.navDiv__lightboxWrapper{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+  background-color: rgba(179, 177, 177, 0.452);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navDiv__lightbox{
+  height: 70vh;
+  width: 60vw;
+  background-color: white;
+}
+  
+#icon{
+  padding-right: 1em;
+}
