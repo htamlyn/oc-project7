@@ -22,7 +22,8 @@ exports.create = (req, res) => {
         lastName: req.body.lastName,
         username: req.body.username,
         password: hash,
-        email: req.body.email
+        email: req.body.email,
+        lastLogin: req.body.lastLogin
     });
 
     // Save User in the database
@@ -111,6 +112,34 @@ exports.update = (req, res) => {
     }
     const { id } = req.params;
     User.updateById(
+        id,
+        new User(req.body),
+        (err, data) => {
+            if (err) {
+                if (err.kind === "not_found") {
+                    res.status(404).send({
+                        message: `No User found with id ${id}.`
+                    });
+                } else {
+                    res.status(500).send({
+                        message: "Error updating User with id " + id
+                    });
+                }
+            } else res.send(data);
+        }
+    );
+};
+
+// Update Users last login time
+exports.setLastLogin = (req, res) => {
+
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+    const { id } = req.params;
+    User.setLogout(
         id,
         new User(req.body),
         (err, data) => {

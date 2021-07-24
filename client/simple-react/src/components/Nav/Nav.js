@@ -5,6 +5,24 @@ import AccountDelete from '../AccountEdit/AccountDelete';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function refreshPage() {
+    const tokenString = localStorage.getItem('token')
+    const userID = JSON.parse(tokenString)
+    let today = new Date();
+    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time;
+    let data = {
+        lastLogin: dateTime
+    }
+    fetch(`http://localhost:3001/users/logout/${userID.userId}`, {
+        crossDomain: true,
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
     localStorage.clear()
     window.location.reload(false);
 }

@@ -6,6 +6,7 @@ const User = function (user) {
     this.username = user.username;
     this.password = user.password;
     this.email = user.email;
+    this.lastLogin = user.lastLogin;
 };
 
 User.create = (newUser, result) => {
@@ -74,8 +75,8 @@ User.findByUsername = (username, result) => {
 
 User.updateById = (id, user, result) => {
     sql.query(
-        "UPDATE employee SET email = ?, firstName = ?, lastName = ?, username = ? WHERE employeeID = ?",
-        [user.email, user.firstName, user.lastName, user.username, id],
+        "UPDATE employee SET email = CASE WHEN ? IS NOT NULL THEN ? ELSE email END, firstName = CASE WHEN ? IS NOT NULL THEN ? ELSE firstName END, lastName = CASE WHEN ? IS NOT NULL THEN ? ELSE lastName END, username = CASE WHEN ? IS NOT NULL THEN ? ELSE username END WHERE employeeID = ?",
+        [user.email, user.email, user.firstName, user.firstName, user.lastName, user.lastName, user.username, user.username, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -84,12 +85,35 @@ User.updateById = (id, user, result) => {
             }
 
             if (res.affectedRows == 0) {
-                // not found Customer with the id
+                // not found User with the id
                 result({ kind: "not_found" }, null);
                 return;
             }
 
-            console.log("updated customer: ", { id: id, ...user });
+            console.log("updated user: ", { id: id, ...user });
+            result(null, { id: id, ...user });
+        }
+    );
+};
+
+User.setLogout = (id, user, result) => {
+    sql.query(
+        "UPDATE employee SET lastLogin = ? WHERE employeeID = ?",
+        [user.lastLogin, id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                // not found User with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("updated user logout: ", { id: id, ...user });
             result(null, { id: id, ...user });
         }
     );

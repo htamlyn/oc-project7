@@ -24,6 +24,7 @@ class SignUp extends React.Component {
             email: null,
             password: null,
             showSuccessBlock: false,
+            lastLogin: '1000-01-01 00:00:00',
             errors: {
                 firstName: '',
                 lastName: '',
@@ -79,6 +80,7 @@ class SignUp extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
+        console.log(this.state)
 
         if (validateForm(this.state.errors)) {
             console.info('Valid Form')

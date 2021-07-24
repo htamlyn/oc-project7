@@ -39,7 +39,10 @@ class CreatePost extends React.Component {
         const tokenString = localStorage.getItem('token')
         const userToken = JSON.parse(tokenString);
         const userId = userToken.userId
-        const dateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
         this.setState({
             employeeID: userId,
             timeStamp: dateTime
@@ -47,9 +50,10 @@ class CreatePost extends React.Component {
             const formData = new FormData();
             formData.append("employeeID", this.state.employeeID);
             formData.append("title", this.state.title);
-            formData.append("file", this.state.selectedFile);
-            console.log(formData.values)
-            console.log(this.state)
+            formData.append("timeStamp", this.state.timeStamp);
+            // formData.append("file", this.state.selectedFile);
+            const values = Object.fromEntries(formData.entries());
+            const toSend = JSON.stringify(values)
             fetch('http://localhost:3001/post', {
                 crossDomain: true,
                 method: 'POST',
@@ -57,7 +61,7 @@ class CreatePost extends React.Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: formData
+                body: toSend
             });
         })
     }
@@ -88,10 +92,10 @@ class CreatePost extends React.Component {
                     <input
                         style={{ display: 'none' }}
                         type="file"
-                        onChange={this.fileSelectedHandler} 
-                        ref = {fileInput => this.fileInput = fileInput}/>
-                    <div onClick={() => this.fileInput.click() }>Upload an Image</div>
-                    <img src={this.state.file}/>
+                        onChange={this.fileSelectedHandler}
+                        ref={fileInput => this.fileInput = fileInput} />
+                    <div onClick={() => this.fileInput.click()}>Upload an Image</div>
+                    <img src={this.state.file} />
                     <input type="submit" value="Post!" id="post" onClick={() => history.push('/')}></input>
                 </form>
             </div>
