@@ -7,6 +7,7 @@ const User = function (user) {
     this.password = user.password;
     this.email = user.email;
     this.lastLogin = user.lastLogin;
+    this.likedPosts = user.likedPosts;
 };
 
 User.create = (newUser, result) => {
@@ -91,6 +92,29 @@ User.updateById = (id, user, result) => {
             }
 
             console.log("updated user: ", { id: id, ...user });
+            result(null, { id: id, ...user });
+        }
+    );
+};
+
+User.updateLikedPosts = (id, user, result) => {
+    sql.query(
+        "UPDATE employee SET likedPosts = ? WHERE employeeID = ?",
+        [user.likedPosts, id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                // not found User with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("updated user's liked posts: ", { id: id, ...user });
             result(null, { id: id, ...user });
         }
     );

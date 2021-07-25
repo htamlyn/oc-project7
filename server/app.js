@@ -9,8 +9,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // app.use((req, res) => {
     // res.json({ message: 'Your request was successful!' });
@@ -18,5 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 require('./routes/user.routes')(app);
 require('./routes/post.routes')(app);
+require('./routes/comment.routes')(app);
+require('./routes/upload.routes')(app);
 
 module.exports = app;

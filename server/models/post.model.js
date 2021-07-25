@@ -5,6 +5,7 @@ const Post = function (post) {
     this.title = post.title;
     this.content = post.content;
     this.imagePath = post.imagePath;
+    this.imageId = post.imageId;
     this.timeStamp = post.timeStamp;
     this.likes = post.likes;
 };
@@ -55,8 +56,8 @@ Post.findById = (postId, result) => {
 
 Post.updateById = (id, post, result) => {
     sql.query(
-        "UPDATE posts SET title = ?, content = ?, imagePath = ? WHERE postID = ?",
-        [post.title, post.content, post.imagePath, id],
+        "UPDATE posts SET title = CASE WHEN ? IS NOT NULL THEN ? ELSE title END, content = CASE WHEN ? IS NOT NULL THEN ? ELSE content END WHERE postID = ?",
+        [post.title, post.title, post.content, post.content, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -99,7 +100,7 @@ Post.likePost = (id, result) => {
 };
 
 Post.cancelLike = (id, result) => {
-    sql.query("UPDATE posts SET likes = likes - 1 WHERE postID = ?",
+    sql.query("UPDATE posts SET likes = likes - 1 WHERE postID = ? AND likes > 0",
         [id],
         (err, res) => {
             if (err) {

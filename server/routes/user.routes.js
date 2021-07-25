@@ -16,6 +16,9 @@ module.exports = app => {
     // Update a User with userId 
     app.put("/users/:id", users.update);
 
+    // Update a User's Liked Posts
+    app.put("/users/like/:id", users.likedPosts);
+
     // Set a Users last login
     app.put("/users/logout/:id", users.setLastLogin);
 

@@ -6,12 +6,14 @@ class CreatePost extends React.Component {
         super(props);
 
         this.state = {
-            file: null,
-            selectedFile: '',
+            fileInputState: '',
+            previewSource: '',
+            uploaded: false,
             employeeID: '',
             title: '',
             content: '',
             imagePath: '',
+            imageId: '',
             timeStamp: '',
             likes: 0
         };
@@ -26,15 +28,52 @@ class CreatePost extends React.Component {
         });
     }
 
-    fileSelectedHandler = event => {
-        event.preventDefault();
-        this.setState({
-            selectedFile: event.target.files[0],
-            file: URL.createObjectURL(event.target.files[0])
-        });
+
+    previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            this.setState({
+                previewSource: reader.result
+            })
+        }
+    };
+
+    fileSelectedHandler = (e) => {
+        const file = e.target.files[0];
+        this.previewFile(file);
     }
 
-    onSubmit(e) {
+    handleFileSubmit = (e) => {
+        e.preventDefault();
+        if (!this.state.previewSource) return;
+        this.uploadImage(this.state.previewSource)
+    }
+
+    async uploadImage(base64EncodedImage) {
+        const response = await fetch('http://localhost:3001/upload', {
+            crossDomain: true,
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ data: base64EncodedImage })
+        });
+        if (response.status === 500) {
+            console.log('error occured')
+        } else {
+            const data = await response.json();
+            this.setState({
+                imagePath: data.url,
+                imageId: data.public_id,
+                uploaded: true
+            })
+        }
+    }
+
+
+    async onSubmit(e) {
         e.preventDefault();
         const tokenString = localStorage.getItem('token')
         const userToken = JSON.parse(tokenString);
@@ -51,7 +90,10 @@ class CreatePost extends React.Component {
             formData.append("employeeID", this.state.employeeID);
             formData.append("title", this.state.title);
             formData.append("timeStamp", this.state.timeStamp);
-            // formData.append("file", this.state.selectedFile);
+            formData.append("imagePath", this.state.imagePath);
+            formData.append("imageId", this.state.imageId);
+            formData.append("content", this.state.content);
+            formData.append("likes", this.state.likes);
             const values = Object.fromEntries(formData.entries());
             const toSend = JSON.stringify(values)
             fetch('http://localhost:3001/post', {
@@ -63,6 +105,7 @@ class CreatePost extends React.Component {
                 },
                 body: toSend
             });
+            window.location.reload(false);
         })
     }
 
@@ -92,10 +135,20 @@ class CreatePost extends React.Component {
                     <input
                         style={{ display: 'none' }}
                         type="file"
+                        value={this.state.fileInputState}
                         onChange={this.fileSelectedHandler}
                         ref={fileInput => this.fileInput = fileInput} />
                     <div onClick={() => this.fileInput.click()}>Upload an Image</div>
-                    <img src={this.state.file} />
+                    {(this.state.uploaded === false ?
+                        (
+                            <button onClick={this.handleFileSubmit}>Confirm Image</button>
+                        )
+                        : <div>Uploaded successfully</div>
+                    )}
+
+                    {this.state.previewSource && (
+                        <img src={this.state.previewSource} alt='chosen' style={{ height: '300px' }} />
+                    )}
                     <input type="submit" value="Post!" id="post" onClick={() => history.push('/')}></input>
                 </form>
             </div>

@@ -4,6 +4,13 @@ import AllPosts from '../AllPosts/AllPosts';
 import Nav from '../Nav/Nav'
 
 class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      page: []
+    };
+  }
 
   async componentDidMount() {
     const tokenString = localStorage.getItem('token')
@@ -14,15 +21,22 @@ class HomePage extends React.Component {
     } else {
       const data = await response.json();
       localStorage.setItem('lastLogin', data.lastLogin)
+      localStorage.setItem('likedPosts', data.likedPosts)
+      const pageFormat =
+        <div>
+          <Nav />
+          <CreatePost />
+          <AllPosts />
+        </div>
+      this.setState({ page: pageFormat })
     }
   }
 
   render() {
+    const { page } = this.state;
     return (
       <div>
-        <Nav />
-        <CreatePost />
-        <AllPosts />
+        {page}
       </div>
     )
   }
