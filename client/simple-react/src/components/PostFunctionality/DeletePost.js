@@ -16,6 +16,7 @@ class DeletePost extends React.Component {
         }
 
         this.togglePanel = this.togglePanel.bind(this);
+        this.deletePost = this.deletePost.bind(this);
     }
 
     togglePanel(e) {
@@ -43,7 +44,7 @@ class DeletePost extends React.Component {
             })
                 .then(res => {
                     if (res.status === 500) {
-                        alert('Error in deleting account')
+                        alert('Error in deleting post')
                     } 
                 })
             fetch(`http://localhost:3001/post/${this.state.id}`, {
@@ -52,7 +53,7 @@ class DeletePost extends React.Component {
             })
                 .then(res => {
                     if (res.status === 500) {
-                        alert('Error in deleting account')
+                        alert('Error in deleting post')
                     } else {
                         refreshPage()
                     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Nav.css'
-import AccountEdit from '../AccountEdit/AccountEdit';
-import AccountDelete from '../AccountEdit/AccountDelete';
+import AccountEdit from '../AccountFunctionality/AccountEdit';
+import AccountDelete from '../AccountFunctionality/AccountDelete';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function refreshPage() {

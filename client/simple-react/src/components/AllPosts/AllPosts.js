@@ -4,6 +4,7 @@ import Likes from '../PostFunctionality/Likes';
 import DeletePost from '../PostFunctionality/DeletePost';
 import EditPost from '../PostFunctionality/EditPost';
 import DisplayDate from '../App/DisplayDate'
+import CommentButton from '../Comments/CommentButton';
 
 
 class AllPosts extends React.Component {
@@ -11,9 +12,9 @@ class AllPosts extends React.Component {
         super(props);
 
         this.state = {
-            posts: []
+            posts: [],
         };
-    }  
+    }
 
     async componentDidMount() {
         const tokenString = localStorage.getItem('token')
@@ -36,12 +37,12 @@ class AllPosts extends React.Component {
                             {d.content}
                         </p>
                     </div>
-                    <Likes likes={d.likes} postID={d.postID} userId={userID.userId}/>
+                    <Likes likes={d.likes} postID={d.postID} userId={userID.userId} />
                     {(d.employeeID === userID.userId ?
                         (
                             <div>
-                                <DeletePost postID={d.postID} imageId ={d.imageId} />
-                                <EditPost postID={d.postID}/>
+                                <DeletePost postID={d.postID} imageId={d.imageId} />
+                                <EditPost postID={d.postID} />
                             </div>
                         )
                         : null
@@ -50,18 +51,18 @@ class AllPosts extends React.Component {
                         (<div>New Post</div>)
                         : null
                     )}
-                    <DisplayDate date={d.timeStamp}/>
+                    <DisplayDate date={d.timeStamp} />
+                    <CommentButton postID={d.postID} userId={userID.userId}/>
                 </div>
             )
-            this.setState({ Posts: dataMap })
+            this.setState({ posts: dataMap })
         }
     }
 
     render() {
-        const { Posts } = this.state;
         return (
             <div>
-                {Posts}
+                {this.state.posts}
             </div>
         )
     }

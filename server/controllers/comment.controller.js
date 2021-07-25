@@ -48,11 +48,11 @@ exports.findPostComments = (req, res) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `No Post found with id ${id}.`
+                    message: `No Comments found on Post with id ${id}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Error retrieving Post with id " + id
+                    message: "Error retrieving Comments on Post with id " + id
                 });
             }
         } else res.send(data);
