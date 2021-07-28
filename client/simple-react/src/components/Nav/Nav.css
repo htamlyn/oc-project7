@@ -1,5 +1,7 @@
 nav{
     height: 8vh;
+    width: 96vw;
+    max-width:100%;
     background-color: white;
     display: flex;
     flex-direction: row;
@@ -7,16 +9,23 @@ nav{
     align-items: center;
     padding-left: 2vw;
     padding-right: 2vw;
+    position: fixed;
+    top: 0;
   }
   
 nav div{
     font-size: larger;
+    font-weight:600;
     color: #5c5a5a;
   }
   
 .navDiv__logo{
     width: 50vw;
   }
+
+.navDiv__logout, .navDiv__account{
+  cursor: pointer;
+}
 
 .navDiv__lightboxWrapper{
   position: fixed;
@@ -30,9 +39,12 @@ nav div{
 }
 
 .navDiv__lightbox{
-  height: 70vh;
+  min-height: 70vh;
   width: 60vw;
   background-color: white;
+  border: solid black 2px;
+  border-radius: 3em;
+  margin-bottom: 2em;
 }
   
 #icon{

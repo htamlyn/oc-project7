@@ -4,7 +4,6 @@ exports.uploadFile = async (req, res) => {
     try {
         const fileStr = req.body.data;
         const uploadedResponse = await cloudinary.uploader.upload(fileStr, {upload_preset: 'ml_default'});
-        console.log(uploadedResponse)
         res.send(uploadedResponse)
     } catch (error) {
         console.error(error)

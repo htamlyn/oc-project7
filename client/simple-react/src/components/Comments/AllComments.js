@@ -28,7 +28,14 @@ class AllComments extends React.Component {
                     <div>{d.username}</div>
                     <div>{d.content}</div>
                     <DisplayDate date={d.timeStamp} />
-                    <DeleteComment commentId={d.commentID} />
+                    {(d.employeeID === this.state.userId ?
+                        (
+                            <div>
+                                <DeleteComment commentId={d.commentID} />
+                            </div>
+                        )
+                        : null
+                    )}
                 </div>
             )
             this.setState({ comments: dataMap })

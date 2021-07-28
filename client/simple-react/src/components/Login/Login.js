@@ -40,18 +40,19 @@ export default function Login({ setToken }) {
 
     return (
         <div className="login-wrapper">
-            <h1>Please Log In</h1>
+            <h1>Welcome to the Groupomania Demo!</h1>
+            <h2>Please Log In</h2>
             <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Username</p>
-                    <input type="text" onChange={e => setUserName(e.target.value)} />
+                <label for="username">
+                    Username
+                    <input type="text" className="client-info" id="username" onChange={e => setUserName(e.target.value)} />
                 </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
+                <label for="password">
+                    Password
+                    <input type="password" className="client-info" id="password" onChange={e => setPassword(e.target.value)} />
                 </label>
                 <br></br>
-                <input type="submit" value="Log In" id="login" onClick={() => history.push('/')}></input>
+                <input type="submit" value="Login" id="login" onClick={() => history.push('/')}></input>
             </form>
         </div>
     )

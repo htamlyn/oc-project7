@@ -122,6 +122,7 @@ class SignUp extends React.Component {
                                 type="text"
                                 id="firstName"
                                 name="firstName"
+                                className="signUp--input"
                                 value={this.state.firstName}
                                 onChange={this.onChange} />
                         </label>
@@ -133,6 +134,7 @@ class SignUp extends React.Component {
                                 type="text"
                                 id="lastName"
                                 name="lastName"
+                                className="signUp--input"
                                 value={this.state.lastName}
                                 onChange={this.onChange} />
                         </label>
@@ -144,6 +146,7 @@ class SignUp extends React.Component {
                                 type="text"
                                 id="username"
                                 name="username"
+                                className="signUp--input"
                                 value={this.state.username}
                                 onChange={this.onChange} />
                         </label>
@@ -155,6 +158,7 @@ class SignUp extends React.Component {
                                 type="email"
                                 id="email"
                                 name="email"
+                                className="signUp--input"
                                 value={this.state.email}
                                 onChange={this.onChange} />
                         </label>
@@ -166,6 +170,7 @@ class SignUp extends React.Component {
                                 type="password"
                                 id="password"
                                 name="password"
+                                className="signUp--input"
                                 value={this.state.password}
                                 onChange={this.onChange} />
                         </label>

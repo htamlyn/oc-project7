@@ -1,21 +1,22 @@
-.login-wrapper {
+.editAccount-wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2em;
 }
 
-#login{
-    margin:5px;
-}
-
-form {
-    text-align: center;
+.editAccount__form{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.client-info {
+.editAccount__label{
+    width: 40%;
+}
+
+.editInput {
     display: block;
     margin: 20px auto;
     width: 100%;
@@ -26,20 +27,34 @@ form {
     transition: all 200ms;
     box-shadow: var(--box-shadow);
 }
-.client-info:focus {
+.editInput:focus {
     outline: none;
     transform: scale(1.2);
 }
 
-#login {
+#confirm, #deleteButton, #deleteConfirm{
     border: none;
     border-radius: 2em;
     background-color: #2d0ce2;
     color: white;
-    width: 70%;
     padding: 0.7em;
     font-size: 1em;
+    margin: auto;
 }
-#login:hover {
+#confirm:hover, #deleteButton:hover, #deleteConfirm:hover {
     background-color: #9973f3;
+}
+
+#confirm {
+    width: 50%;
+}
+
+#deleteButton {
+    width: 40%;
+}
+
+.delete__lightbox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

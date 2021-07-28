@@ -1,5 +1,6 @@
 import React from "react";
 import history from '../App/history';
+import './AccountFunctionality.css'
 
 const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i);
 
@@ -79,9 +80,6 @@ class AccountEdit extends React.Component {
         this.setState({ errors, [name]: value }, () => {
             console.log(errors)
         })
-        // this.setState({
-        //     [e.target.name]: e.target.value
-        // });
     }
 
     onSubmit(e) {
@@ -117,48 +115,52 @@ class AccountEdit extends React.Component {
         const { errors } = this.state;
         if (!this.state.showSuccessBlock) {
             return (
-                <div className='signup-wrapper'>
+                <div className='editAccount-wrapper'>
                     <h2>Edit Account Details</h2>
-                    <form className='signUp__form' onSubmit={this.onSubmit}>
-                        <label>
+                    <form className='editAccount__form' onSubmit={this.onSubmit}>
+                        <label className='editAccount__label'>
                             <p>First name</p>
                             <input
                                 type="text"
                                 id="firstName"
                                 name="firstName"
+                                className="editInput"
                                 value={this.state.firstName}
                                 onChange={this.onChange} />
                         </label>
                         {errors.firstName.length > 0 &&
                             <span className='error'>{errors.firstName}</span>}
-                        <label>
+                        <label className='editAccount__label'>
                             <p>Last name</p>
                             <input
                                 type="text"
                                 id="lastName"
                                 name="lastName"
+                                className="editInput"
                                 value={this.state.lastName}
                                 onChange={this.onChange} />
                         </label>
                         {errors.lastName.length > 0 &&
                             <span className='error'>{errors.lastName}</span>}
-                        <label>
+                        <label className='editAccount__label'>
                             <p>Username</p>
                             <input
                                 type="text"
                                 id="username"
                                 name="username"
+                                className="editInput"
                                 value={this.state.username}
                                 onChange={this.onChange} />
                         </label>
                         {errors.username.length > 0 &&
                             <span className='error'>{errors.username}</span>}
-                        <label>
+                        <label className='editAccount__label'>
                             <p>Email</p>
                             <input
                                 type="email"
                                 id="email"
                                 name="email"
+                                className="editInput"
                                 value={this.state.email}
                                 onChange={this.onChange} />
                         </label>

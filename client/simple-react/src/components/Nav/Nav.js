@@ -53,7 +53,7 @@ class Nav extends React.Component {
                         <FontAwesomeIcon icon="user" id='icon' />
                         Account
                     </div>
-                    <div onClick={refreshPage}>
+                    <div className='navDiv__logout' onClick={refreshPage}>
                         Logout
                     </div>
                 </nav>

@@ -1,12 +1,14 @@
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import history from '../App/history';
+import './CreatePost.css'
 
 class CreatePost extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            fileInputState: '',
+            fileInputState: false,
             previewSource: '',
             uploaded: false,
             employeeID: '',
@@ -34,7 +36,8 @@ class CreatePost extends React.Component {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             this.setState({
-                previewSource: reader.result
+                previewSource: reader.result,
+                fileInputState: true
             })
         }
     };
@@ -112,45 +115,48 @@ class CreatePost extends React.Component {
     render() {
         return (
             <div className='postDiv'>
-                <h3>Create Post</h3>
-                <form className='createPost__form' onSubmit={this.onSubmit}>
-                    <label>
+                <h3 className='createPost__header'>What's on your mind?</h3>
+                <div className='createPost__formWrapper'>
+                    <form className='createPost__form' onSubmit={this.onSubmit}>
+                        <label className='createPost__title'>
+                            <input
+                                type="text"
+                                placeholder="Title"
+                                id="title"
+                                name="title"
+                                value={this.state.title}
+                                onChange={this.onChange} />
+                        </label>
+                        <label className='createPost__content'>
+                            <input
+                                type="text"
+                                placeholder="Content"
+                                id="content"
+                                name="content"
+                                value={this.state.content}
+                                onChange={this.onChange} />
+                        </label>
                         <input
-                            type="text"
-                            placeholder="Title"
-                            id="title"
-                            name="title"
-                            value={this.state.title}
-                            onChange={this.onChange} />
-                    </label>
-                    <label>
-                        <input
-                            type="text"
-                            placeholder="Content"
-                            id="content"
-                            name="content"
-                            value={this.state.content}
-                            onChange={this.onChange} />
-                    </label>
-                    <input
-                        style={{ display: 'none' }}
-                        type="file"
-                        value={this.state.fileInputState}
-                        onChange={this.fileSelectedHandler}
-                        ref={fileInput => this.fileInput = fileInput} />
-                    <div onClick={() => this.fileInput.click()}>Upload an Image</div>
-                    {(this.state.uploaded === false ?
-                        (
-                            <button onClick={this.handleFileSubmit}>Confirm Image</button>
-                        )
-                        : <div>Uploaded successfully</div>
-                    )}
-
-                    {this.state.previewSource && (
-                        <img src={this.state.previewSource} alt='chosen' style={{ height: '300px' }} />
-                    )}
-                    <input type="submit" value="Post!" id="post" onClick={() => history.push('/')}></input>
-                </form>
+                            style={{ display: 'none' }}
+                            type="file"
+                            onChange={this.fileSelectedHandler}
+                            ref={fileInput => this.fileInput = fileInput} />
+                        <div onClick={() => this.fileInput.click()}>Upload an Image/Gif</div>
+                        {(this.state.fileInputState === true ?
+                            (
+                                <button onClick={this.handleFileSubmit}>Confirm Image</button>
+                            )
+                            : [ this.state.uploaded === true ?
+                                 <div>Uploaded successfully</div>
+                                 :null
+                            ]
+                        )}
+                        {this.state.previewSource && (
+                            <img src={this.state.previewSource} alt='chosen' style={{ height: '300px' }} />
+                        )}
+                        <input type="submit" value="Post!" id="post" onClick={() => history.push('/')}></input>
+                    </form>
+                </div>
             </div>
         )
     }

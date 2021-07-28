@@ -11,7 +11,7 @@ class EditPost extends React.Component {
         super(props);
 
         this.state = {
-            id: null,
+            id: '',
             open: false,
             showSuccessBlock: false,
             title: null,
