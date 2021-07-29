@@ -1,4 +1,3 @@
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import history from '../App/history';
 import './CreatePost.css'
@@ -136,25 +135,31 @@ class CreatePost extends React.Component {
                                 value={this.state.content}
                                 onChange={this.onChange} />
                         </label>
-                        <input
-                            style={{ display: 'none' }}
-                            type="file"
-                            onChange={this.fileSelectedHandler}
-                            ref={fileInput => this.fileInput = fileInput} />
-                        <div onClick={() => this.fileInput.click()}>Upload an Image/Gif</div>
-                        {(this.state.fileInputState === true ?
-                            (
-                                <button onClick={this.handleFileSubmit}>Confirm Image</button>
-                            )
-                            : [ this.state.uploaded === true ?
-                                 <div>Uploaded successfully</div>
-                                 :null
-                            ]
-                        )}
-                        {this.state.previewSource && (
-                            <img src={this.state.previewSource} alt='chosen' style={{ height: '300px' }} />
-                        )}
-                        <input type="submit" value="Post!" id="post" onClick={() => history.push('/')}></input>
+                        <div className='createPost__btnWrapper'>
+                            <input
+                                style={{ display: 'none' }}
+                                type="file"
+                                onChange={this.fileSelectedHandler}
+                                ref={fileInput => this.fileInput = fileInput} />
+                            {(this.state.fileInputState === false ?
+                                (
+                                    <button type='button' className='createPost__button' onClick={() => this.fileInput.click()}>Add an Image/Gif</button>
+                                ) : null
+                            )}
+                            {(this.state.fileInputState === true ?
+                                (
+                                    <button className='createPost__button' onClick={this.handleFileSubmit}>Confirm Image</button>
+                                )
+                                : [this.state.uploaded === true ?
+                                    <div>Uploaded successfully</div>
+                                    : null
+                                ]
+                            )}
+                            {this.state.previewSource && (
+                                    <img src={this.state.previewSource} id='previewImage' alt='chosen' />
+                            )}
+                            <input className='createPost__button' type="submit" value="Post!" id="post" onClick={() => history.push('/')}></input>
+                        </div>
                     </form>
                 </div>
             </div>

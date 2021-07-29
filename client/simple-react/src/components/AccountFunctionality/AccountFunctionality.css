@@ -34,19 +34,47 @@
 
 #confirm, #deleteButton, #deleteConfirm{
     border: none;
+	background: none;
+	cursor: pointer;
+	padding: 0.5em 1.4em;
+	display: inline-block;
+	margin: 1em 1.5em;
+	font-weight: 500;
+	outline: none;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+    background: #2d0ce2;
+    color: #fff;
+    box-shadow: 0 0.4em #1b0788;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
     border-radius: 2em;
-    background-color: #2d0ce2;
-    color: white;
-    padding: 0.7em;
-    font-size: 1em;
-    margin: auto;
 }
 #confirm:hover, #deleteButton:hover, #deleteConfirm:hover {
-    background-color: #9973f3;
+    box-shadow: 0 0.2em #1b0788;
+	top: 0.1em;
+    background-color: #482ce4;
+}
+
+.confirm:active, #deleteButton:active, #deleteConfirm:active {
+	box-shadow: 0 0 #1b0788;
+	top: 0.1em;
+}
+
+.confirm:after, #deleteButton:after, #deleteConfirm:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
 }
 
 #confirm {
-    width: 50%;
+    width: 40%;
+    margin-left: 30%;
 }
 
 #deleteButton {

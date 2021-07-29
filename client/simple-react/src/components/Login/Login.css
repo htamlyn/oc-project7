@@ -31,15 +31,41 @@ form {
     transform: scale(1.2);
 }
 
-#login {
+#login{
     border: none;
-    border-radius: 2em;
-    background-color: #2d0ce2;
-    color: white;
-    width: 70%;
-    padding: 0.7em;
+	cursor: pointer;
+	padding: 0.5em 1.4em;
+	margin: 1em 1.5em;
     font-size: 1em;
+	font-weight: 500;
+	outline: none;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+    background: #2d0ce2;
+    color: #fff;
+    box-shadow: 0 0.4em #1b0788;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    border-radius: 2em;
 }
+
 #login:hover {
-    background-color: #9973f3;
+    box-shadow: 0 0.2em #1b0788;
+	top: 0.1em;
+}
+
+#login:active {
+    box-shadow: 0 0 #1b0788;
+	top: 0.1em;
+}
+
+#login::after {
+    content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
 }
