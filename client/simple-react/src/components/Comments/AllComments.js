@@ -1,6 +1,7 @@
 import React from 'react';
 import DeleteComment from './DeleteComment';
 import DisplayDate from '../App/DisplayDate';
+import './Comments.css';
 
 class AllComments extends React.Component {
     constructor(props) {

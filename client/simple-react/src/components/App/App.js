@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import HomePage from '../HomePage/HomePage';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import useToken from './useToken';
 
-library.add( faUser)
+library.add( faUser, faThumbsUp)
 
 function App() {
 

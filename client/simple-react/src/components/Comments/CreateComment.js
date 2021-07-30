@@ -1,5 +1,6 @@
 import React from 'react';
 import history from '../App/history';
+import './Comments.css';
 
 class CreateComment extends React.Component {
     constructor(props) {
@@ -56,16 +57,15 @@ class CreateComment extends React.Component {
             <div>
                 <h4>New Comment</h4>
                 <form className='createComment__form' onSubmit={this.onSubmit}>
-                <label>
-                        <input
+                <label className='commentInput'>
+                        <textarea
                             type="text"
-                            placeholder="Content"
-                            id="content"
+                            id="commentContent"
                             name="content"
                             value={this.state.content}
                             onChange={this.onChange} />
                     </label>
-                    <input type="submit" value="Post Comment!" id="post" onClick={() => history.push('/')}></input>
+                    <input className='commentsBtn' type="submit" value="Post Comment!" id="post" onClick={() => history.push('/')}></input>
                 </form>
             </div>
         )

@@ -127,9 +127,8 @@ class CreatePost extends React.Component {
                                 onChange={this.onChange} />
                         </label>
                         <label className='createPost__content'>
-                            <input
+                            <textarea
                                 type="text"
-                                placeholder="Content"
                                 id="content"
                                 name="content"
                                 value={this.state.content}
@@ -146,17 +145,18 @@ class CreatePost extends React.Component {
                                     <button type='button' className='createPost__button' onClick={() => this.fileInput.click()}>Add an Image/Gif</button>
                                 ) : null
                             )}
-                            {(this.state.fileInputState === true ?
+                            {(this.state.fileInputState === true && this.state.uploaded !== true ?
                                 (
                                     <button className='createPost__button' onClick={this.handleFileSubmit}>Confirm Image</button>
-                                )
-                                : [this.state.uploaded === true ?
+                                ) : null
+                            )}
+                            {(this.state.uploaded === true ?
+                                (
                                     <div>Uploaded successfully</div>
-                                    : null
-                                ]
+                                ) : null
                             )}
                             {this.state.previewSource && (
-                                    <img src={this.state.previewSource} id='previewImage' alt='chosen' />
+                                <img src={this.state.previewSource} id='previewImage' alt='chosen' />
                             )}
                             <input className='createPost__button' type="submit" value="Post!" id="post" onClick={() => history.push('/')}></input>
                         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function refreshPage() {
     window.location.reload(false);
@@ -57,10 +58,10 @@ class Likes extends React.Component {
             const newPosts = []
             newPosts.push(postId)
             localStorage.setItem('likedPosts', JSON.stringify(newPosts))
-                this.setState({
-                    liked: true,
-                    likeValue: 1
-                })
+            this.setState({
+                liked: true,
+                likeValue: 1
+            })
         }
     }
 
@@ -104,16 +105,20 @@ class Likes extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id='likesWrapper'>
+                <div id='likesDisplay'>{this.props.likes}</div>
                 {(this.state.liked === false ?
                     (
-                        <button onClick={this.updateDatabase}>Like</button>
+                        <div>
+                            <FontAwesomeIcon icon="thumbs-up" id='like' onClick={this.updateDatabase} />
+                        </div>
                     )
                     : (
-                        <button onClick={this.updateDatabase}>Unlike</button>
+                        <div>
+                            <FontAwesomeIcon icon="thumbs-up" id='cancelLike' onClick={this.updateDatabase} />
+                        </div>
                     )
                 )}
-                <span>{this.props.likes}</span>
             </div>
         )
     }

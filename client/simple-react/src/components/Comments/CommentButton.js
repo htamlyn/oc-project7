@@ -1,5 +1,6 @@
 import React from 'react';
 import CommentWrapper from './CommentWrapper';
+import './Comments.css'
 
 class CommentButton extends React.Component {
     constructor(props) {
@@ -21,8 +22,8 @@ class CommentButton extends React.Component {
 
     render() {
         return (
-            <div>
-                <button onClick={(e) => this.togglePanel(e)}>Show Comments</button>
+            <div className='commentsWrapper'>
+                <button className='commentsBtn' onClick={(e) => this.togglePanel(e)}>Show Comments</button>
                 {(
                     this.state.open ? (
                         <CommentWrapper postId={this.state.postId} userId={this.state.userId}/>

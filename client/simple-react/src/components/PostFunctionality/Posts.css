@@ -2,5 +2,53 @@
 .post__lightbox{
     height: 18vh;
     width: 18vw;
-    background-color: rgb(168, 167, 167);
+}
+
+#like{
+    color: black;
+    font-size: 2em;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
+#cancelLike{
+    color: #2d0ce2;
+    font-size: 2em;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
+#likesWrapper{
+    display: flex;
+    width: 50%;
+    justify-content: flex-start;
+}
+
+#likesDisplay{
+    font-size: 1.5em;
+}
+
+.functionBtn{
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    padding: 0.7em;
+    background-color: #2d0ce2;
+    border: none;
+    border-radius: 2em;
+    color: white;
+    margin-left: 1em;
+}
+
+.editPost__wrapper{
+    width: 100%;
+}
+
+.editPost__form{
+    width: 100%;
+    margin-top: 1em;
+}
+
+.editPost__input{
+    margin-bottom: 2em;
+    width: 100%;
 }

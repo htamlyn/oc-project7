@@ -61,14 +61,13 @@ class EditPost extends React.Component {
     render() {
         if (!this.state.showSuccessBlock) {
             return (
-                <div>
-                    <button onClick={(e) => this.togglePanel(e)}>Edit</button>
+                <div  className='editPost__wrapper'>
+                    <button className='functionBtn' onClick={(e) => this.togglePanel(e)}>Edit</button>
                     {
                         this.state.open ? (
                             <div>
-                                <div>Edit Posts</div>
                                 <form className='editPost__form' onSubmit={this.onSubmit}>
-                                    <label>
+                                    <label  className='editPost__input'>
                                         <input
                                             type="text"
                                             placeholder="Title"
@@ -77,8 +76,8 @@ class EditPost extends React.Component {
                                             value={this.state.title}
                                             onChange={this.onChange} />
                                     </label>
-                                    <label>
-                                        <input
+                                    <label className='editPost__input'>
+                                        <textarea
                                             type="text"
                                             placeholder="Content"
                                             id="content"
@@ -86,7 +85,7 @@ class EditPost extends React.Component {
                                             value={this.state.content}
                                             onChange={this.onChange} />
                                     </label>
-                                    <input type="submit" value="Confirm Changes!" id="edit" onClick={() => history.push('/')}></input>
+                                    <input className='functionBtn' type="submit" value="Confirm Changes!" id="edit" onClick={() => history.push('/')}></input>
                                 </form>
                             </div>
                         ) : null

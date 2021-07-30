@@ -22,6 +22,7 @@
     -moz-transition: none;
     transition: none;
     border-radius: 2em;
+    font-family: 'Raleway', sans-serif;
 }
 #signUp:hover {
     box-shadow: 0 0.2em #1b0788;

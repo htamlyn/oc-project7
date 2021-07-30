@@ -1,0 +1,23 @@
+.commentsBtn{
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    padding: 0.7em;
+    background-color: #2d0ce2;
+    border: none;
+    border-radius: 2em;
+    color: white;
+}
+
+.commentsWrapper{
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.commentInput{
+    width: 100%;
+}
+
+#commentContent{
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import CreateComment from './CreateComment';
 import AllComments from './AllComments';
+import './Comments.css';
 
 class CommentWrapper extends React.Component{
     constructor(props) {

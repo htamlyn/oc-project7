@@ -27,6 +27,10 @@ class AllPosts extends React.Component {
             const data = await response.json();
             const dataMap = data.reverse().map((d) =>
                 <div className='postDiv' key={d.postID}>
+                    {(`"${d.timeStamp}"` > `"${lastLogin}"` ?
+                        (<div className='postDiv__newPost'>New Post!</div>)
+                        : null
+                    )}
                     <div className='postDiv__header'>
                         <h3 className='postDiv__header--title'>{d.title}</h3>
                         <h4>{d.username}</h4>
@@ -37,22 +41,20 @@ class AllPosts extends React.Component {
                             {d.content}
                         </p>
                     </div>
-                    <Likes likes={d.likes} postID={d.postID} userId={userID.userId} />
+                    <div className='postDiv__buttons'>
+                        <Likes likes={d.likes} postID={d.postID} userId={userID.userId} />
+                        <CommentButton postID={d.postID} userId={userID.userId} />
+                    </div>
                     {(d.employeeID === userID.userId ?
                         (
-                            <div>
+                            <div className='postDiv__userBtns'>
                                 <DeletePost postID={d.postID} imageId={d.imageId} />
                                 <EditPost postID={d.postID} />
                             </div>
                         )
                         : null
                     )}
-                    {(`"${d.timeStamp}"` > `"${lastLogin}"` ?
-                        (<div>New Post</div>)
-                        : null
-                    )}
                     <DisplayDate date={d.timeStamp} />
-                    <CommentButton postID={d.postID} userId={userID.userId}/>
                 </div>
             )
             this.setState({ posts: dataMap })

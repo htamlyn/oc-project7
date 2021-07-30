@@ -64,13 +64,12 @@ class DeletePost extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={(e) => this.togglePanel(e)}>Delete</button>
+                <button className='functionBtn' onClick={(e) => this.togglePanel(e)}>Delete</button>
                 {
                     this.state.open ? (
                         <div className='post__lightbox'>
                             <h4>Are you sure?</h4>
-                            <button onClick={() => this.deletePost()}>Delete Post</button>
-                            <p>{this.props.postID}</p>
+                            <button className='functionBtn' onClick={() => this.deletePost()}>Delete Post</button>
                         </div>
                     ) : null
                 }

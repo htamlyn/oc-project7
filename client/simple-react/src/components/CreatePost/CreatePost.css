@@ -36,6 +36,7 @@
 #content{
     width: 100%;
     height: 100px;
+    font-family: 'Raleway', sans-serif;
 }
 
 .createPost__btnWrapper{
@@ -63,6 +64,7 @@
     transition: none;
     border-radius: 2em;
     height: 20%;
+    font-family: 'Raleway', sans-serif;
 }
 
 .createPost__button:hover {

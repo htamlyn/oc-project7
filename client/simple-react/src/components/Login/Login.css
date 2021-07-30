@@ -49,6 +49,7 @@ form {
     -moz-transition: none;
     transition: none;
     border-radius: 2em;
+    font-family: 'Raleway', sans-serif;
 }
 
 #login:hover {
